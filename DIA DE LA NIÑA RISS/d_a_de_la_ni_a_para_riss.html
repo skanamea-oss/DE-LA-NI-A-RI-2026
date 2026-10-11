@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Riss 💕 | Un regalo especial de Carlos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pastelPink: '#ffd1dc',
+                        roseSoft: '#fbcfe8',
+                        purpleSoft: '#e9d5ff',
+                        goldAccent: '#fef08a',
+                        deepRose: '#db2777'
+                    },
+                    fontFamily: {
+                        handwriting: ['"Dancing Script"', 'cursive'],
+                        sans: ['"Quicksand"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #f3e8ff 50%, #ffe4e6 100%);
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* Ambient floating elements */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            animation: floatUp 8s linear infinite;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Glassmorphism style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 15px 35px rgba(219, 39, 119, 0.12);
+        }
+
+        /* Slide step transition styles */
+        .slide-step {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px) scale(0.98);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .slide-step.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Custom glow animations */
+        .glow-pulse {
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbcfe8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #db2777;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 relative flex flex-col justify-between py-6 px-4 cursor-pointer">
+
+    <!-- Floating Background Particles Container -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0 overflow-hidden"></div>
+
+    <!-- MAIN INTERACTIVE WRAPPER -->
+    <div class="relative z-10 max-w-2xl mx-auto w-full my-auto flex flex-col items-center">
+
+        <!-- Progress Header & Indicators -->
+        <div class="w-full mb-6 glass-card rounded-2xl p-4 flex flex-col gap-3 items-center">
+            <div class="flex items-center justify-between w-full text-xs font-bold text-pink-600">
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-heart text-pink-500"></i> Para Riss
+                </span>
+                <span id="step-counter-text" class="bg-pink-100 px-3 py-1 rounded-full border border-pink-200">
+                    Paso 1 de 5
+                </span>
+                <span class="text-pink-500 font-medium">De Carlos ❤️</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-pink-100 h-2.5 rounded-full overflow-hidden p-0.5 border border-pink-200">
+                <div id="progress-bar" class="bg-gradient-to-r from-pink-400 to-rose-500 h-full rounded-full transition-all duration-500 w-[20%]"></div>
+            </div>
+
+            <!-- Dots Indicator -->
+            <div class="flex justify-center gap-2 pt-1" id="dots-container">
+                <span class="w-3 h-3 rounded-full bg-pink-500 transition-all cursor-pointer" onclick="goToStep(0)"></span>
+                <span class="w-3 h-3 rounded-full bg-pink-200 transition-all cursor-pointer" onclick="goToStep(1)"></span>
+                <span class="w-3 h-3 rounded-full bg-pink-200 transition-all cursor-pointer" onclick="goToStep(2)"></span>
+                <span class="w-3 h-3 rounded-full bg-pink-200 transition-all cursor-pointer" onclick="goToStep(3)"></span>
+                <span class="w-3 h-3 rounded-full bg-pink-200 transition-all cursor-pointer" onclick="goToStep(4)"></span>
+            </div>
+        </div>
+
+        <!-- SLIDE 1: WELCOME SCREEN -->
+        <div class="slide-step active w-full" id="slide-0">
+            <div class="glass-card rounded-3xl p-8 sm:p-10 text-center flex flex-col items-center gap-6 border-2 border-pink-200">
+                <div class="relative">
+                    <div class="w-24 h-24 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-4xl shadow-inner border-2 border-pink-300 animate-bounce">
+                        🌸
+                    </div>
+                    <span class="absolute -top-1 -right-1 text-2xl">✨</span>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 font-semibold text-xs border border-pink-200">
+                        <i class="fa-solid fa-sparkles text-amber-400"></i> Una sorpresa especial
+                    </div>
+                    <h1 class="font-handwriting text-5xl sm:text-6xl font-bold text-pink-600 leading-tight">
+                        ¡Feliz Día de la Niña, Riss! 💕
+                    </h1>
+                    <p class="text-gray-600 text-base sm:text-lg max-w-md mx-auto leading-relaxed">
+                        Preparé este pequeño detalle interactivo con todo mi amor para celebrar a esa niña tierna, alegre y maravillosa que vive en tu corazón.
+                    </p>
+                </div>
+
+                <div class="p-4 bg-pink-50/90 rounded-2xl border border-pink-200 w-full text-xs text-pink-700 flex items-center justify-center gap-2 shadow-sm">
+                    <i class="fa-solid fa-music animate-pulse"></i>
+                    <span>Toca en cualquier parte para iniciar la música y el recorrido</span>
+                </div>
+
+                <button onclick="nextStep()" class="glow-pulse bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold px-8 py-3.5 rounded-full hover:from-pink-600 hover:to-rose-600 active:scale-95 transition-all shadow-lg flex items-center gap-3 text-lg mt-2">
+                    <span>Comenzar el recorrido</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: INNER CHILD MESSAGE -->
+        <div class="slide-step w-full" id="slide-1">
+            <div class="glass-card rounded-3xl p-8 sm:p-10 text-center flex flex-col items-center gap-6 border-2 border-pink-200">
+                <div class="w-20 h-20 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center text-3xl shadow-inner border border-purple-200">
+                    👑
+                </div>
+
+                <div class="space-y-3">
+                    <h2 class="font-handwriting text-4xl sm:text-5xl font-bold text-purple-700">
+                        Tu Niña Interior
+                    </h2>
+                    <p class="text-gray-700 text-base leading-relaxed">
+                        Hoy quiero recordarte lo increíble que es tu esencia. La forma en que te emocionas por las cosas lindas, tu lado risueño y esa dulzura natural que tienes.
+                    </p>
+                </div>
+
+                <div class="bg-white/80 p-5 rounded-2xl border border-pink-200 shadow-sm text-left space-y-3 w-full">
+                    <p class="text-sm text-gray-700 flex items-start gap-3">
+                        <i class="fa-solid fa-heart text-pink-500 mt-1"></i>
+                        <span><b>Cuidaré siempre de ti:</b> Prometo ser ese lugar seguro donde siempre puedas ser tú misma, reír sin parar y sentirte amada.</span>
+                    </p>
+                    <p class="text-sm text-gray-700 flex items-start gap-3">
+                        <i class="fa-solid fa-star text-amber-400 mt-1"></i>
+                        <span><b>Tu chispa es única:</b> Nunca dejes de soñar ni de mirar la vida con esos ojos llenos de ternura que tanto me enamoran.</span>
+                    </p>
+                </div>
+
+                <div class="text-xs text-pink-600 font-semibold italic">
+                    "Hecho por Carlos con todo el amor del mundo" ❤️
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: VIRTUE CARDS -->
+        <div class="slide-step w-full" id="slide-2">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 text-center flex flex-col items-center gap-6 border-2 border-pink-200">
+                <div class="space-y-2">
+                    <span class="text-3xl">✨</span>
+                    <h2 class="font-handwriting text-4xl font-bold text-pink-600">
+                        Lo que te hace tan especial, Riss
+                    </h2>
+                    <p class="text-xs text-gray-600">Toca cada tarjeta para celebrar tu lado más hermoso:</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+                    <!-- Virtud 1 -->
+                    <div onclick="cardClick(this)" class="glass-card p-4 rounded-2xl text-center cursor-pointer transform hover:-translate-y-1 active:scale-95 transition border-t-4 border-pink-400">
+                        <div class="text-3xl mb-2">😊</div>
+                        <h3 class="font-bold text-pink-700 text-sm mb-1">Tu Sonrisa</h3>
+                        <p class="text-xs text-gray-600">Ilumina mis días y llena cualquier espacio de pura alegría y calma.</p>
+                    </div>
+
+                    <!-- Virtud 2 -->
+                    <div onclick="cardClick(this)" class="glass-card p-4 rounded-2xl text-center cursor-pointer transform hover:-translate-y-1 active:scale-95 transition border-t-4 border-purple-400">
+                        <div class="text-3xl mb-2">🧸</div>
+                        <h3 class="font-bold text-purple-700 text-sm mb-1">Tus Mimos</h3>
+                        <p class="text-xs text-gray-600">Esa ternura dulce con la que expresas tu cariño y me abrazas el alma.</p>
+                    </div>
+
+                    <!-- Virtud 3 -->
+                    <div onclick="cardClick(this)" class="glass-card p-4 rounded-2xl text-center cursor-pointer transform hover:-translate-y-1 active:scale-95 transition border-t-4 border-rose-400">
+                        <div class="text-3xl mb-2">💖</div>
+                        <h3 class="font-bold text-rose-700 text-sm mb-1">Tu Buen Corazón</h3>
+                        <p class="text-xs text-gray-600">Tu inocencia, empatía y forma tan bonita de querer a los tuyos.</p>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-pink-100/70 rounded-xl text-xs text-pink-700 w-full font-medium">
+                    ¡Eres la persona más consentida y especial de mi vida! 🥰
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: REASON GENERATOR -->
+        <div class="slide-step w-full" id="slide-3">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 text-center flex flex-col items-center gap-5 border-2 border-pink-200">
+                <div class="w-16 h-16 bg-rose-100 text-rose-500 rounded-full flex items-center justify-center text-2xl shadow-inner border border-rose-200">
+                    🎁
+                </div>
+
+                <div class="space-y-1">
+                    <h2 class="font-handwriting text-4xl font-bold text-pink-600">
+                        Razones por las que te amo
+                    </h2>
+                    <p class="text-xs text-gray-600">Presiona el botón para descubrir un nuevo mensaje directo de mi corazón:</p>
+                </div>
+
+                <!-- Interactive Display Card -->
+                <div id="compliment-card" class="w-full bg-white/90 rounded-2xl p-6 shadow-inner border border-pink-200 min-h-[110px] flex items-center justify-center transition-all">
+                    <p id="compliment-text" class="text-base text-pink-700 font-medium italic transition-opacity duration-300">
+                        "¡Presiona abajo para ver tu primera razón de hoy, Riss!"
+                    </p>
+                </div>
+
+                <button onclick="generateCompliment()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold px-6 py-2.5 rounded-full active:scale-95 transition-all shadow flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-dice text-amber-200"></i>
+                    <span>Ver otra razón</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: FINAL LETTER & PHOTO FRAME -->
+        <div class="slide-step w-full" id="slide-4">
+            <div class="glass-card rounded-3xl p-6 sm:p-8 text-center flex flex-col items-center gap-5 border-2 border-pink-200">
+                <div class="space-y-1">
+                    <span class="text-3xl">💌</span>
+                    <h2 class="font-handwriting text-4xl font-bold text-pink-600">
+                        Tu Carta de Amor
+                    </h2>
+                    <p class="text-xs text-gray-600">Toca la cajita de regalo para desplegar tu mensaje final:</p>
+                </div>
+
+                <!-- Interactive Gift Box Button -->
+                <div id="gift-box" onclick="openGift()" class="cursor-pointer group relative my-2 hover:scale-105 transition-transform duration-300">
+                    <div class="w-32 h-32 bg-gradient-to-tr from-pink-500 to-rose-400 rounded-2xl shadow-xl flex items-center justify-center relative border-4 border-white">
+                        <!-- Ribbon vertical -->
+                        <div class="absolute w-6 h-full bg-yellow-300 top-0 left-1/2 -translate-x-1/2 shadow"></div>
+                        <!-- Ribbon horizontal -->
+                        <div class="absolute h-6 w-full bg-yellow-300 top-1/2 -translate-y-1/2 shadow"></div>
+                        <!-- Bow Icon -->
+                        <i class="fa-solid fa-ribbon text-yellow-300 text-4xl relative z-10 drop-shadow group-hover:rotate-12 transition-transform"></i>
+                    </div>
+                </div>
+
+                <!-- Revealed Secret Letter -->
+                <div id="letter-content" class="hidden bg-white/95 rounded-2xl p-6 text-left border-2 border-pink-200 shadow-md space-y-4 animate-fade-in w-full text-sm">
+                    <p class="text-pink-600 font-bold font-handwriting text-2xl">Mi hermosa Riss,</p>
+                    <p class="text-gray-700 leading-relaxed">
+                        Hoy en el Día de la Niña quiero recordarte lo inmensamente valiosa que eres para mí. Me fascina la ternura con la que ves la vida, tus risas contagiosas y la forma en que iluminas todo a tu alrededor.
+                    </p>
+                    <p class="text-gray-700 leading-relaxed">
+                        Prometo cuidar siempre de esa niña hermosa que habita en ti, hacerte sonreír en tus días tristes y recordarte siempre lo amada que eres.
+                    </p>
+                    <div class="pt-3 border-t border-pink-100 text-right">
+                        <p class="font-semibold text-pink-700 text-base">¡Te amo con todo mi corazón!</p>
+                        <p class="font-handwriting text-xl text-gray-800 font-bold mt-1">Con todo mi amor, Carlos ❤️</p>
+                    </div>
+
+                    <!-- PHOTO FRAME CONTAINER -->
+                    <div class="pt-4 border-t border-pink-100 flex flex-col items-center">
+                        <div class="p-3 bg-gradient-to-tr from-pink-200 to-rose-100 rounded-2xl shadow-md border-2 border-white max-w-xs w-full text-center group transform hover:rotate-1 transition-transform">
+                            <div class="overflow-hidden rounded-xl bg-pink-50 border border-pink-200 relative aspect-square flex items-center justify-center">
+                                <img id="riss-photo" src="foto_riss.jpg" alt="Foto de Riss" class="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x400/fbcfe8/db2777?text=Guarda+tu+foto+como+foto_riss.jpg';">
+                            </div>
+                            <p class="font-handwriting text-2xl text-pink-600 mt-2 font-bold">
+                                ✨ Mi Niña Hermosa ✨
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION BUTTONS (PREVIOUS / NEXT) -->
+        <div id="navigation-controls" class="w-full mt-6 flex items-center justify-between gap-4">
+            <button id="btn-prev" onclick="prevStep()" class="hidden glass-card hover:bg-white text-gray-700 font-semibold px-6 py-3 rounded-full active:scale-95 transition-all shadow flex items-center gap-2 text-sm border border-pink-200">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+                <span>Anterior</span>
+            </button>
+
+            <div class="flex-1"></div>
+
+            <button id="btn-next" onclick="nextStep()" class="glass-card bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold px-8 py-3 rounded-full hover:from-pink-600 hover:to-rose-600 active:scale-95 transition-all shadow-md flex items-center gap-2 text-sm">
+                <span>Siguiente</span>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- FLOATING MUSIC PLAYER CONTROLLER -->
+    <div class="fixed bottom-4 right-4 z-50 glass-card px-4 py-2.5 rounded-full shadow-lg border border-pink-200 flex items-center gap-3">
+        <audio id="bg-music" loop src="musica.mp3" preload="auto"></audio>
+        <button id="music-btn" onclick="toggleMusic(event)" class="w-9 h-9 bg-pink-500 hover:bg-pink-600 text-white rounded-full flex items-center justify-center shadow transition active:scale-90">
+            <i id="music-icon" class="fa-solid fa-music"></i>
+        </button>
+        <div class="flex flex-col text-left">
+            <span class="text-[10px] uppercase tracking-wider font-bold text-pink-600">Nuestra Música</span>
+            <span id="music-status" class="text-xs text-gray-600 font-medium">Toca para reproducir</span>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 5;
+        let musicStarted = false;
+
+        // Guaranteed audio start on ANY user interaction
+        function startAudioOnFirstInteraction() {
+            if (musicStarted) return;
+
+            const audio = document.getElementById("bg-music");
+            const btnIcon = document.getElementById("music-icon");
+            const statusText = document.getElementById("music-status");
+
+            audio.play().then(() => {
+                musicStarted = true;
+                btnIcon.className = "fa-solid fa-pause";
+                statusText.innerText = "Sonando 🎵";
+                removeAudioListeners();
+            }).catch(err => {
+                console.log("Audio unlock attempted:", err);
+            });
+        }
+
+        function removeAudioListeners() {
+            window.removeEventListener('click', startAudioOnFirstInteraction);
+            window.removeEventListener('touchstart', startAudioOnFirstInteraction);
+            window.removeEventListener('pointerdown', startAudioOnFirstInteraction);
+            window.removeEventListener('keydown', startAudioOnFirstInteraction);
+        }
+
+        // Attach global interaction listeners to the window
+        window.addEventListener('click', startAudioOnFirstInteraction);
+        window.addEventListener('touchstart', startAudioOnFirstInteraction);
+        window.addEventListener('pointerdown', startAudioOnFirstInteraction);
+        window.addEventListener('keydown', startAudioOnFirstInteraction);
+
+        // Music toggle controller (manual pause/play)
+        function toggleMusic(e) {
+            if (e) e.stopPropagation(); // prevent triggering global click handler twice
+            const audio = document.getElementById("bg-music");
+            const btnIcon = document.getElementById("music-icon");
+            const statusText = document.getElementById("music-status");
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicStarted = true;
+                    btnIcon.className = "fa-solid fa-pause";
+                    statusText.innerText = "Sonando 🎵";
+                }).catch(err => {
+                    statusText.innerText = "Agrega musica.mp3";
+                });
+            } else {
+                audio.pause();
+                btnIcon.className = "fa-solid fa-music";
+                statusText.innerText = "Pausado ⏸️";
+            }
+        }
+
+        // Compliments list for Step 4
+        const compliments = [
+            "Riss, tu sonrisa tiene el poder de alegrar hasta el día más gris ☀️",
+            "Amo la ternura con la que me miras y cómo haces que todo sea más bonito 🌸",
+            "Eres el abrazo más cálido y el regalo más hermoso de mi vida 💕",
+            "Tu risa contagiosa es, sin duda, mi sonido favorito en el mundo 🎶",
+            "No hay nadie en el universo con un corazón tan dulce e inolvidable como el tuyo ✨",
+            "Gracias por contagiarme tu alegría e ilusión por las cosas pequeñitas de la vida 🌿",
+            "Eres la consentida de mi corazón hoy, mañana y para siempre 👑"
+        ];
+        let lastComplimentIndex = -1;
+
+        // Function to update step UI
+        function updateStepUI() {
+            // Hide all steps
+            for (let i = 0; i < totalSteps; i++) {
+                const stepElem = document.getElementById(`slide-${i}`);
+                if (stepElem) {
+                    stepElem.classList.remove('active');
+                }
+            }
+
+            // Show active step
+            const currentStepElem = document.getElementById(`slide-${currentStep}`);
+            if (currentStepElem) {
+                currentStepElem.classList.add('active');
+            }
+
+            // Update Progress Bar
+            const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+            document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+
+            // Update Counter Text
+            document.getElementById("step-counter-text").innerText = `Paso ${currentStep + 1} de ${totalSteps}`;
+
+            // Update Dots
+            const dots = document.getElementById("dots-container").children;
+            for (let i = 0; i < dots.length; i++) {
+                if (i === currentStep) {
+                    dots[i].className = "w-4 h-3 rounded-full bg-pink-500 transition-all cursor-pointer";
+                } else {
+                    dots[i].className = "w-3 h-3 rounded-full bg-pink-200 transition-all cursor-pointer";
+                }
+            }
+
+            // Navigation buttons visibility
+            const btnPrev = document.getElementById("btn-prev");
+            const btnNext = document.getElementById("btn-next");
+
+            if (currentStep === 0) {
+                btnPrev.classList.add("hidden");
+            } else {
+                btnPrev.classList.remove("hidden");
+            }
+
+            if (currentStep === totalSteps - 1) {
+                btnNext.classList.add("hidden");
+            } else {
+                btnNext.classList.remove("hidden");
+            }
+
+            // Burst hearts particle on step change
+            createHeartBurst();
+        }
+
+        // Next Step
+        function nextStep() {
+            if (currentStep < totalSteps - 1) {
+                currentStep++;
+                updateStepUI();
+            }
+        }
+
+        // Previous Step
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateStepUI();
+            }
+        }
+
+        // Direct jump to step
+        function goToStep(stepIndex) {
+            if (stepIndex >= 0 && stepIndex < totalSteps) {
+                currentStep = stepIndex;
+                updateStepUI();
+            }
+        }
+
+        // Card Click animation
+        function cardClick(card) {
+            card.classList.add("scale-105");
+            setTimeout(() => card.classList.remove("scale-105"), 200);
+            createHeartBurst();
+        }
+
+        // Generate Compliment for Step 4
+        function generateCompliment() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * compliments.length);
+            } while (randomIndex === lastComplimentIndex && compliments.length > 1);
+
+            lastComplimentIndex = randomIndex;
+
+            const textElem = document.getElementById("compliment-text");
+            textElem.style.opacity = "0";
+
+            setTimeout(() => {
+                textElem.innerText = compliments[randomIndex];
+                textElem.style.opacity = "1";
+            }, 200);
+
+            createHeartBurst();
+        }
+
+        // Open Gift Letter in Step 5
+        function openGift() {
+            const letter = document.getElementById("letter-content");
+            const giftBox = document.getElementById("gift-box");
+            
+            letter.classList.remove("hidden");
+            giftBox.classList.add("scale-90", "opacity-80");
+            createHeartBurst();
+        }
+
+        // Ambient Floating Particles background
+        function createFloatingParticles() {
+            const container = document.getElementById("particles-container");
+            const icons = ["❤️", "💖", "🌸", "✨", "💕", "⭐"];
+
+            setInterval(() => {
+                const particle = document.createElement("div");
+                particle.classList.add("floating-heart");
+                particle.innerText = icons[Math.floor(Math.random() * icons.length)];
+                particle.style.left = Math.random() * 100 + "vw";
+                particle.style.fontSize = (Math.random() * 20 + 15) + "px";
+                particle.style.animationDuration = (Math.random() * 4 + 6) + "s";
+
+                container.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 8000);
+            }, 600);
+        }
+
+        // Burst hearts on interactions
+        function createHeartBurst() {
+            const container = document.getElementById("particles-container");
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("floating-heart");
+                heart.innerText = "💖";
+                heart.style.left = (Math.random() * 80 + 10) + "vw";
+                heart.style.top = (Math.random() * 80 + 10) + "vh";
+                heart.style.fontSize = (Math.random() * 25 + 15) + "px";
+                heart.style.animationDuration = "2.5s";
+
+                container.appendChild(heart);
+
+                setTimeout(() => heart.remove(), 2500);
+            }
+        }
+
+        // Window load initializer
+        window.onload = function() {
+            createFloatingParticles();
+            updateStepUI();
+
+            // Try autoplay immediately (will work if browser settings permit, otherwise the global listeners handle it)
+            startAudioOnFirstInteraction();
+        };
+    </script>
+</body>
+</html>
